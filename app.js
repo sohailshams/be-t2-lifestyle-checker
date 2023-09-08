@@ -1,9 +1,11 @@
+const cors = require("cors");
 const express = require("express");
+const app = express();
+app.use(cors());
+app.use(express.json());
 const {
   fetchPatientWithNhsNumber,
 } = require("./controllers/patients.controllers");
-const app = express();
-app.use(express.json());
 
 app.get("/api/patients/:nhs_number", fetchPatientWithNhsNumber);
 
