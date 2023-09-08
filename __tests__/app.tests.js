@@ -31,3 +31,22 @@ describe("GET/api/patients/:nhs_number - test suite", () => {
       });
   });
 });
+
+describe("api error handling test suite", () => {
+  test("GET /api/patients/:nhs_number - status:400, responds with an error message when passed wrong nhs_number", () => {
+    return request(app)
+      .get("/api/patients/notNhsNumber")
+      .expect(400)
+      .then((response) => {
+        expect(response.body.msg).toBe("Bad Request");
+      });
+  });
+  test("GET /api/patients/:nhs_number - status:404, responds with an error message if nhs_number does not exist", () => {
+    return request(app)
+      .get("/api/patients/12345678")
+      .expect(404)
+      .then((response) => {
+        expect(response.body.msg).toBe("Your details could not be found");
+      });
+  });
+});
