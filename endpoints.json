@@ -1,0 +1,19 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/patients/{nhs_number}": {
+    "description": "serves an object of patient for the specified nhs number",
+    "queries": [],
+    "exampleResponse": {
+      "patient": {
+        "user_id": 1,
+        "nhs_number": 111222333,
+        "first_name": "DOE",
+        "surname_name": "John",
+        "age": 18,
+        "dob": "Jan 14"
+      }
+    }
+  }
+}
