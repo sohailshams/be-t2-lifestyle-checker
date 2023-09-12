@@ -50,3 +50,40 @@ describe("api error handling test suite", () => {
       });
   });
 });
+
+describe("JSON describing all the available endpoints this API - test suite", () => {
+  test("GET /api returns an object containing all endpoint information", () => {
+    return request(app)
+      .get("/api")
+      .then((response) => {
+        expect(response.body.apiInfo.hasOwnProperty("GET /api")).toBe(true);
+        expect(response.body.apiInfo["GET /api"]).toEqual({
+          description:
+            "serves up a json representation of all the available endpoints of the api",
+        });
+        expect(
+          response.body.apiInfo.hasOwnProperty("GET /api/patients/{nhs_number}")
+        ).toBe(true);
+        expect(response.body.apiInfo["GET /api/patients/{nhs_number}"]).toEqual(
+          {
+            description:
+              "serves an object of patient for the specified nhs number",
+            queries: [],
+            exampleResponse: {
+              patient: {
+                user_id: 1,
+                nhs_number: 111222333,
+                first_name: "DOE",
+                surname_name: "John",
+                age: 18,
+                dob: "Jan 14",
+              },
+            },
+          }
+        );
+        Object.keys(response.body.apiInfo).forEach((key) => {
+          expect(typeof response.body.apiInfo[key]).toBe("object");
+        });
+      });
+  });
+});

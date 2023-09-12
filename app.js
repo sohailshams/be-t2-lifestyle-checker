@@ -6,7 +6,9 @@ app.use(express.json());
 const {
   fetchPatientWithNhsNumber,
 } = require("./controllers/patients.controllers");
+const { fetchApiInfo } = require("./controllers/endpoints.controllers");
 
+app.get("/api", fetchApiInfo);
 app.get("/api/patients/:nhs_number", fetchPatientWithNhsNumber);
 
 app.use((err, request, response, next) => {
